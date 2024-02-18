@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>St. Scholastica Catholic School | Student Login Portal</title>
+  <!-- Link your CSS file here -->
+   <style>
+    *{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url('MEDIA/IMAGES/LOGO.jpg');
+  background-size: cover;
+  background-position: center;
+  border: 2px solid rgba(255, 255, 255, .2);
+
+}
+.wrapper{
+  width: 370px;
+  color: #040530;
+  border-radius: 12px;
+  padding: 10px 20px;
+  background-color: white;
+}
+.wrapper h1{
+  font-size: 36px;
+  text-align: center;
+  margin-top: 20px;
+}
+.wrapper .input-box{
+  position: relative;
+  width: 100%;
+  height: 50px;
+  
+  margin: 30px 0;
+}
+.input-box input{
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  border: 1px solid rgba(71, 4, 4, 0.2);
+  border-radius: 8px;
+  font-size: 16px;
+  color: #0a051d;
+  padding: 20px 45px 20px 20px;
+  font-family: Helvetica;
+  font-weight: bold;
+}
+.input-box input::placeholder{
+  color: #949496;
+}
+.input-box i{
+  position: absolute;
+  right: 20px;
+  top: 30%;
+  transform: translate(-50%);
+  font-size: 20px;
+
+}
+.wrapper .btn{
+  width: 100%;
+  height: 45px;
+  background: #fff;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+  cursor: pointer;
+  font-size: 16px;
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 40px;
+}.wrapper .btn:enabled {
+  background-color: rgb(3, 8, 49);
+  color: white;
+  cursor: pointer;
+}
+
+/* Styling for the disabled Login button */
+.wrapper .btn:disabled {
+  background-color: lightgray;
+  color: #333;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <form id="loginForm">
+      <h1>Student Portal</h1>
+      <div class="input-box">
+        <input type="text" id="username" placeholder="Enter your admission number" required>
+        <i class='bx bxs-user'></i>
+      </div>
+      <div class="input-box">
+        <input type="password" id="password" placeholder="Enter your assessment number" required>
+        <i class='bx bxs-lock-alt' ></i>
+      </div>
+      <button type="submit" class="btn" id="loginBtn" disabled>Login</button>
+      <p class="error-message" style="color: red; display: none;">Invalid username or password. Please try again.</p>
+    </form>
+  </div>
+
+<script>
+  const users = {
+    //GRADE 7 FAITH
+   "Zendai": "JS153",
+    
+
+  };
+
+  const loginForm = document.getElementById('loginForm');
+  const errorMessage = document.querySelector('.error-message');
+  const loginBtn = document.getElementById('loginBtn');
+  const usernameInput = document.getElementById('username');
+  const passwordInput = document.getElementById('password');
+
+  // Function to validate email format
+  function validateEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+
+  // Function to check if both fields are not empty
+  function checkFieldsNotEmpty() {
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
+    return username !== '' && password !== '';
+  }
+
+  // Event listener for input fields
+  usernameInput.addEventListener('input', function () {
+    if (checkFieldsNotEmpty()) {
+      loginBtn.removeAttribute('disabled');
+    } else {
+      loginBtn.setAttribute('disabled', 'true');
+    }
+  });
+
+  passwordInput.addEventListener('input', function () {
+    if (checkFieldsNotEmpty()) {
+      loginBtn.removeAttribute('disabled');
+    } else {
+      loginBtn.setAttribute('disabled', 'true');
+    }
+  });
+
+  // Event listener for form submission
+  loginForm.addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
+
+    // Check if the username exists and matches its corresponding password
+   // After validating the username and password in the loginForm.addEventListener('submit') function
+if (users[username] && users[username] === password) {
+    // Extract first name before the dot
+    const firstName = username.split('.')[0];
+    // Redirect to quiz.html with username and password as query parameters
+    window.location.href = `quiz.html?username=${username}&password=${password}`;
+} else {
+    errorMessage.style.display = 'block';
+}
+
+  });
+</script>
+</body>
+</html>
